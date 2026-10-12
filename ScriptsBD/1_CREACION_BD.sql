@@ -1,0 +1,1 @@
+CREATE DATABASE VentasTel_BD;
