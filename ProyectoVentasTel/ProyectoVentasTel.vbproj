@@ -11,9 +11,10 @@
     <AssemblyName>ProyectoVentasTel</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -102,23 +103,23 @@
     <Compile Include="Presentacion\Productos\UcProductos.Designer.vb">
       <DependentUpon>UcProductos.vb</DependentUpon>
     </Compile>
-    <Compile Include="Presentacion\Usuarios\FrmUsuario.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Presentacion\Usuarios\FrmUsuario.Designer.vb">
-      <DependentUpon>FrmUsuario.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Presentacion\Usuarios\UcUsuarios.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Presentacion\Usuarios\UcUsuarios.Designer.vb">
-      <DependentUpon>UcUsuarios.vb</DependentUpon>
-    </Compile>
     <Compile Include="Presentacion\Inventario\UcEntradasInventario.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Presentacion\Inventario\UcEntradasInventario.Designer.vb">
       <DependentUpon>UcEntradasInventario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Usuarios\usuarios\FrmUsuario.Designer.vb">
+      <DependentUpon>FrmUsuario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Usuarios\usuarios\FrmUsuario.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Usuarios\usuarios\UcUsuarios.Designer.vb">
+      <DependentUpon>UcUsuarios.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Usuarios\usuarios\UcUsuarios.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Presentacion\Ventas\UcVenta.vb">
       <SubType>UserControl</SubType>
@@ -167,14 +168,14 @@
     <EmbeddedResource Include="Presentacion\Productos\UcProductos.resx">
       <DependentUpon>UcProductos.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentacion\Usuarios\FrmUsuario.resx">
-      <DependentUpon>FrmUsuario.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Presentacion\Usuarios\UcUsuarios.resx">
-      <DependentUpon>UcUsuarios.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Inventario\UcEntradasInventario.resx">
       <DependentUpon>UcEntradasInventario.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Usuarios\usuarios\FrmUsuario.resx">
+      <DependentUpon>FrmUsuario.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Usuarios\usuarios\UcUsuarios.resx">
+      <DependentUpon>UcUsuarios.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Ventas\UcVenta.resx">
       <DependentUpon>UcVenta.vb</DependentUpon>
