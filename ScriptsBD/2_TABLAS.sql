@@ -145,9 +145,25 @@ WHERE NOT EXISTS (
     WHERE Existentes.Nombre = NuevosRoles.Nombre
 );
 
+-- Administrador inicial. La contraseña se almacena exclusivamente como hash PBKDF2-SHA256.
+-- La contraseña temporal se entrega fuera del repositorio y debe cambiarse antes de uso productivo.
+IF NOT EXISTS (
+    SELECT 1
+    FROM dbo.Usuarios
+    WHERE NombreUsuario = N'admin'
+)
+INSERT INTO dbo.Usuarios (IdRol, NombreCompleto, NombreUsuario, ContrasenaHash, Activo)
+SELECT IdRol,
+       N'Administrador inicial',
+       N'admin',
+       N'PBKDF2-SHA256$100000$ZqScFdz+yqjKxuVwgPJlEA==$NR/sJeFOs5hvHw+ZJ+qokeBoloyJdifUwimupO5C6Xc=',
+       1
+FROM dbo.Roles
+WHERE Nombre = N'Administrador';
+GO
+
 -- Comprobacion: deben aparecer las seis tablas del modelo.
 SELECT name AS Tabla
 FROM sys.tables
 WHERE schema_id = SCHEMA_ID(N'dbo')
 ORDER BY name;
-

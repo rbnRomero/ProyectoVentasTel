@@ -79,6 +79,15 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infraestructura\Datos\ConexionSqlServer.vb" />
+    <Compile Include="Infraestructura\Datos\RepositorioUsuariosSqlServer.vb" />
+    <Compile Include="Dominio\Seguridad\RolUsuario.vb" />
+    <Compile Include="Dominio\Seguridad\ModuloAplicacion.vb" />
+    <Compile Include="Dominio\Seguridad\UsuarioAutenticado.vb" />
+    <Compile Include="Dominio\Seguridad\IRepositorioUsuarios.vb" />
+    <Compile Include="Aplicacion\Seguridad\HashContrasena.vb" />
+    <Compile Include="Aplicacion\Seguridad\ServicioAutenticacion.vb" />
+    <Compile Include="Aplicacion\Seguridad\SesionActual.vb" />
     <Compile Include="Presentacion\Autenticacion\FrmInicioSesion.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -194,6 +203,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="AGENTS.md" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -209,7 +219,6 @@
     <Folder Include="Aplicacion\Seguridad\" />
     <Folder Include="Aplicacion\Servicios\" />
     <Folder Include="Dominio\" />
-    <Folder Include="Infraestructura\Datos\" />
     <Folder Include="Infraestructura\Imagenes\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
