@@ -88,6 +88,7 @@
     <Compile Include="Aplicacion\Seguridad\HashContrasena.vb" />
     <Compile Include="Aplicacion\Seguridad\ServicioAutenticacion.vb" />
     <Compile Include="Aplicacion\Seguridad\SesionActual.vb" />
+    <Compile Include="Presentacion\UiTema.vb" />
     <Compile Include="Presentacion\Autenticacion\FrmInicioSesion.vb">
       <SubType>Form</SubType>
     </Compile>

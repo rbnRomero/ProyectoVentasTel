@@ -2,6 +2,8 @@ Imports ProyectoVentasTel.Aplicacion.Seguridad
 Imports ProyectoVentasTel.Dominio.Seguridad
 
 Public Class FrmPrincipal
+    Private Shared ReadOnly ColorMenuNormal As Color = Color.FromArgb(15, 23, 42)
+    Private Shared ReadOnly ColorMenuActivo As Color = Color.FromArgb(37, 99, 235)
     Private ReadOnly usuarioActual As UsuarioAutenticado
     Private ReadOnly ucVenta As New UcVenta()
     Private ReadOnly ucHistorialVentas As New UcHistorialVentas()
@@ -12,13 +14,61 @@ Public Class FrmPrincipal
         If usuario Is Nothing Then Throw New ArgumentNullException(NameOf(usuario))
 
         InitializeComponent()
+        StartPosition = FormStartPosition.CenterScreen
         usuarioActual = usuario
     End Sub
 
     Private Sub FrmPrincipal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        UiTema.Aplicar(Me)
+        ConfigurarMenuLateral()
         lblRolActual.Text = String.Format("{0} · {1}", usuarioActual.NombreCompleto, usuarioActual.Rol.ToString())
+        lblRolActual.AccessibleName = "Usuario actual: " & lblRolActual.Text
+        ConfigurarEncabezadoAdaptable()
         ConfigurarAccesos()
         AbrirModuloSiPermitido(ModuloAplicacion.Productos, ucProductos, "Productos")
+    End Sub
+
+    Private Sub FrmPrincipal_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        ConfigurarMenuLateral()
+    End Sub
+
+    Private Sub ConfigurarMenuLateral()
+        tlpRaiz.BackColor = UiTema.Navegacion
+        tlpRaiz.Padding = Padding.Empty
+        pnlMenu.BackColor = UiTema.Navegacion
+        pnlMenu.Margin = Padding.Empty
+        pnlMenu.Padding = Padding.Empty
+        tlpMenu.BackColor = UiTema.Navegacion
+        tlpMenu.Margin = Padding.Empty
+        tlpMenu.Padding = Padding.Empty
+        pnlAreaPrincipal.BackColor = UiTema.Fondo
+        pnlAreaPrincipal.Margin = Padding.Empty
+    End Sub
+
+    Private Sub ConfigurarEncabezadoAdaptable()
+        Dim distribucion As New TableLayoutPanel With {
+            .Name = "tlpEncabezadoAdaptable",
+            .Dock = DockStyle.Fill,
+            .BackColor = UiTema.Superficie,
+            .Padding = New Padding(24, 0, 24, 0),
+            .ColumnCount = 2,
+            .RowCount = 1
+        }
+        distribucion.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100.0F))
+        distribucion.ColumnStyles.Add(New ColumnStyle(SizeType.AutoSize))
+        distribucion.RowStyles.Add(New RowStyle(SizeType.Percent, 100.0F))
+
+        pnlEncabezado.Controls.Remove(lblTituloSeccion)
+        pnlEncabezado.Controls.Remove(lblRolActual)
+        lblTituloSeccion.Dock = DockStyle.Fill
+        lblTituloSeccion.TextAlign = ContentAlignment.MiddleLeft
+        lblTituloSeccion.AutoEllipsis = True
+        lblRolActual.Dock = DockStyle.Fill
+        lblRolActual.TextAlign = ContentAlignment.MiddleRight
+        lblRolActual.AutoEllipsis = True
+        distribucion.Controls.Add(lblTituloSeccion, 0, 0)
+        distribucion.Controls.Add(lblRolActual, 1, 0)
+        pnlEncabezado.Controls.Add(distribucion)
     End Sub
 
     Private Sub ConfigurarAccesos()
@@ -67,14 +117,42 @@ Public Class FrmPrincipal
             Return
         End If
 
-        MostrarModulo(control, titulo)
+        MostrarModulo(modulo, control, titulo)
     End Sub
 
-    Private Sub MostrarModulo(control As UserControl, titulo As String)
+    Private Sub MostrarModulo(modulo As ModuloAplicacion, control As UserControl, titulo As String)
         If control.Parent IsNot pnlContenido Then pnlContenido.Controls.Add(control)
 
         control.Dock = DockStyle.Fill
         control.BringToFront()
         lblTituloSeccion.Text = titulo
+        ActualizarModuloActivo(modulo)
+    End Sub
+
+    Private Sub ActualizarModuloActivo(moduloActivo As ModuloAplicacion)
+        Dim botones As Button() = {btnProductos, btnVenta, btnHistorial, btnEntradas, btnUsuarios}
+        For Each boton As Button In botones
+            boton.BackColor = ColorMenuNormal
+        Next
+
+        Dim botonActivo As Button = Nothing
+        Select Case moduloActivo
+            Case ModuloAplicacion.Productos
+                botonActivo = btnProductos
+            Case ModuloAplicacion.Ventas
+                botonActivo = btnVenta
+            Case ModuloAplicacion.HistorialVentas
+                botonActivo = btnHistorial
+            Case ModuloAplicacion.EntradasInventario
+                botonActivo = btnEntradas
+            Case ModuloAplicacion.Usuarios
+                botonActivo = btnUsuarios
+        End Select
+
+        If botonActivo IsNot Nothing Then botonActivo.BackColor = ColorMenuActivo
+        For Each boton As Button In botones
+            Dim esActivo As Boolean = boton Is botonActivo
+            boton.AccessibleDescription = If(esActivo, "Módulo actual", "Abrir módulo")
+        Next
     End Sub
 End Class

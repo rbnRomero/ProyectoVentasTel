@@ -24,10 +24,10 @@ Partial Class FrmPrincipal
         Me.btnSalir = New System.Windows.Forms.Button()
         Me.pnlAreaPrincipal = New System.Windows.Forms.Panel()
         Me.pnlContenido = New System.Windows.Forms.Panel()
-        Me.ucProductos = New ProyectoVentasTel.UcProductos()
         Me.pnlEncabezado = New System.Windows.Forms.Panel()
         Me.lblTituloSeccion = New System.Windows.Forms.Label()
         Me.lblRolActual = New System.Windows.Forms.Label()
+        Me.ucProductos = New ProyectoVentasTel.UcProductos()
         Me.tlpRaiz.SuspendLayout()
         Me.pnlMenu.SuspendLayout()
         Me.tlpMenu.SuspendLayout()
@@ -125,7 +125,7 @@ Partial Class FrmPrincipal
         Me.btnVenta.Name = "btnVenta"
         Me.btnVenta.Size = New System.Drawing.Size(218, 40)
         Me.btnVenta.TabIndex = 2
-        Me.btnVenta.Text = "Nueva venta"
+        Me.btnVenta.Text = "Ventas"
         '
         'btnHistorial
         '
@@ -139,7 +139,7 @@ Partial Class FrmPrincipal
         Me.btnHistorial.Name = "btnHistorial"
         Me.btnHistorial.Size = New System.Drawing.Size(218, 40)
         Me.btnHistorial.TabIndex = 3
-        Me.btnHistorial.Text = "Historial de ventas"
+        Me.btnHistorial.Text = "Historial Ventas"
         '
         'btnEntradas
         '
@@ -153,7 +153,7 @@ Partial Class FrmPrincipal
         Me.btnEntradas.Name = "btnEntradas"
         Me.btnEntradas.Size = New System.Drawing.Size(218, 40)
         Me.btnEntradas.TabIndex = 4
-        Me.btnEntradas.Text = "Entradas de inventario"
+        Me.btnEntradas.Text = "Inventario"
         '
         'btnUsuarios
         '
@@ -201,14 +201,6 @@ Partial Class FrmPrincipal
         Me.pnlContenido.Size = New System.Drawing.Size(1032, 675)
         Me.pnlContenido.TabIndex = 0
         '
-        'ucProductos
-        '
-        Me.ucProductos.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ucProductos.Location = New System.Drawing.Point(0, 0)
-        Me.ucProductos.Name = "ucProductos"
-        Me.ucProductos.Size = New System.Drawing.Size(1032, 675)
-        Me.ucProductos.TabIndex = 0
-        '
         'pnlEncabezado
         '
         Me.pnlEncabezado.BackColor = System.Drawing.Color.White
@@ -238,6 +230,15 @@ Partial Class FrmPrincipal
         Me.lblRolActual.Name = "lblRolActual"
         Me.lblRolActual.Size = New System.Drawing.Size(200, 28)
         Me.lblRolActual.TabIndex = 1
+        '
+        'ucProductos
+        '
+        Me.ucProductos.BackColor = System.Drawing.Color.FromArgb(CType(CType(241, Byte), Integer), CType(CType(245, Byte), Integer), CType(CType(249, Byte), Integer))
+        Me.ucProductos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ucProductos.Location = New System.Drawing.Point(0, 0)
+        Me.ucProductos.Name = "ucProductos"
+        Me.ucProductos.Size = New System.Drawing.Size(1032, 675)
+        Me.ucProductos.TabIndex = 0
         '
         'FrmPrincipal
         '

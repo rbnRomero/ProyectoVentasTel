@@ -14,13 +14,6 @@ Partial Class UcVenta
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.tlpRaiz = New System.Windows.Forms.TableLayoutPanel()
-        Me.dgvDetalleVenta = New System.Windows.Forms.DataGridView()
-        Me.colDetalleIdProducto = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDetalleCodigo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDetalleNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDetalleCantidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDetallePrecioUnitario = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDetalleSubtotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.pnlEncabezado = New System.Windows.Forms.Panel()
         Me.lblTitulo = New System.Windows.Forms.Label()
         Me.lblFolioPendiente = New System.Windows.Forms.Label()
@@ -39,6 +32,13 @@ Partial Class UcVenta
         Me.btnAgregarProducto = New System.Windows.Forms.Button()
         Me.lblDetalle = New System.Windows.Forms.Label()
         Me.btnQuitarProducto = New System.Windows.Forms.Button()
+        Me.dgvDetalleVenta = New System.Windows.Forms.DataGridView()
+        Me.colDetalleIdProducto = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDetalleCodigo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDetalleNombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDetalleCantidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDetallePrecioUnitario = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDetalleSubtotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.pnlCobro = New System.Windows.Forms.Panel()
         Me.lblTotalTexto = New System.Windows.Forms.Label()
         Me.lblTotalValor = New System.Windows.Forms.Label()
@@ -50,12 +50,12 @@ Partial Class UcVenta
         Me.btnConfirmarVenta = New System.Windows.Forms.Button()
         Me.erpVenta = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.tlpRaiz.SuspendLayout()
-        CType(Me.dgvDetalleVenta, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlEncabezado.SuspendLayout()
         Me.pnlCatalogo.SuspendLayout()
         CType(Me.dgvProductosVenta, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlAgregar.SuspendLayout()
         CType(Me.nudCantidad, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvDetalleVenta, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlCobro.SuspendLayout()
         CType(Me.nudEfectivoRecibido, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.erpVenta, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -86,66 +86,8 @@ Partial Class UcVenta
         Me.tlpRaiz.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48.0!))
         Me.tlpRaiz.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 210.0!))
         Me.tlpRaiz.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 132.0!))
-        Me.tlpRaiz.Size = New System.Drawing.Size(987, 812)
+        Me.tlpRaiz.Size = New System.Drawing.Size(966, 812)
         Me.tlpRaiz.TabIndex = 0
-        '
-        'dgvDetalleVenta
-        '
-        Me.dgvDetalleVenta.BackgroundColor = System.Drawing.Color.White
-        Me.dgvDetalleVenta.ColumnHeadersHeight = 40
-        Me.dgvDetalleVenta.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colDetalleIdProducto, Me.colDetalleCodigo, Me.colDetalleNombre, Me.colDetalleCantidad, Me.colDetallePrecioUnitario, Me.colDetalleSubtotal})
-        Me.tlpRaiz.SetColumnSpan(Me.dgvDetalleVenta, 2)
-        Me.dgvDetalleVenta.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvDetalleVenta.EnableHeadersVisualStyles = False
-        Me.dgvDetalleVenta.GridColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(225, Byte), Integer))
-        Me.dgvDetalleVenta.Location = New System.Drawing.Point(24, 446)
-        Me.dgvDetalleVenta.Margin = New System.Windows.Forms.Padding(0, 0, 0, 16)
-        Me.dgvDetalleVenta.Name = "dgvDetalleVenta"
-        Me.dgvDetalleVenta.RowHeadersWidth = 51
-        Me.dgvDetalleVenta.RowTemplate.Height = 36
-        Me.dgvDetalleVenta.Size = New System.Drawing.Size(939, 194)
-        Me.dgvDetalleVenta.TabIndex = 5
-        '
-        'colDetalleIdProducto
-        '
-        Me.colDetalleIdProducto.HeaderText = "IdProducto"
-        Me.colDetalleIdProducto.MinimumWidth = 6
-        Me.colDetalleIdProducto.Name = "colDetalleIdProducto"
-        '
-        'colDetalleCodigo
-        '
-        Me.colDetalleCodigo.HeaderText = "Código"
-        Me.colDetalleCodigo.MinimumWidth = 6
-        Me.colDetalleCodigo.Name = "colDetalleCodigo"
-        Me.colDetalleCodigo.Width = 130
-        '
-        'colDetalleNombre
-        '
-        Me.colDetalleNombre.HeaderText = "Producto"
-        Me.colDetalleNombre.MinimumWidth = 6
-        Me.colDetalleNombre.Name = "colDetalleNombre"
-        Me.colDetalleNombre.Width = 290
-        '
-        'colDetalleCantidad
-        '
-        Me.colDetalleCantidad.HeaderText = "Cantidad"
-        Me.colDetalleCantidad.MinimumWidth = 6
-        Me.colDetalleCantidad.Name = "colDetalleCantidad"
-        Me.colDetalleCantidad.Width = 110
-        '
-        'colDetallePrecioUnitario
-        '
-        Me.colDetallePrecioUnitario.HeaderText = "Precio unitario"
-        Me.colDetallePrecioUnitario.MinimumWidth = 6
-        Me.colDetallePrecioUnitario.Name = "colDetallePrecioUnitario"
-        Me.colDetallePrecioUnitario.Width = 150
-        '
-        'colDetalleSubtotal
-        '
-        Me.colDetalleSubtotal.HeaderText = "Subtotal"
-        Me.colDetalleSubtotal.MinimumWidth = 6
-        Me.colDetalleSubtotal.Name = "colDetalleSubtotal"
-        Me.colDetalleSubtotal.Width = 150
         '
         'pnlEncabezado
         '
@@ -157,7 +99,7 @@ Partial Class UcVenta
         Me.pnlEncabezado.Location = New System.Drawing.Point(24, 24)
         Me.pnlEncabezado.Margin = New System.Windows.Forms.Padding(0, 0, 0, 16)
         Me.pnlEncabezado.Name = "pnlEncabezado"
-        Me.pnlEncabezado.Size = New System.Drawing.Size(939, 52)
+        Me.pnlEncabezado.Size = New System.Drawing.Size(918, 52)
         Me.pnlEncabezado.TabIndex = 0
         '
         'lblTitulo
@@ -167,7 +109,7 @@ Partial Class UcVenta
         Me.lblTitulo.Name = "lblTitulo"
         Me.lblTitulo.Size = New System.Drawing.Size(400, 40)
         Me.lblTitulo.TabIndex = 0
-        Me.lblTitulo.Text = "Nueva venta"
+        Me.lblTitulo.Text = "Nueva Venta"
         '
         'lblFolioPendiente
         '
@@ -191,7 +133,7 @@ Partial Class UcVenta
         Me.pnlCatalogo.Margin = New System.Windows.Forms.Padding(0, 0, 0, 16)
         Me.pnlCatalogo.Name = "pnlCatalogo"
         Me.pnlCatalogo.Padding = New System.Windows.Forms.Padding(20)
-        Me.pnlCatalogo.Size = New System.Drawing.Size(939, 234)
+        Me.pnlCatalogo.Size = New System.Drawing.Size(918, 234)
         Me.pnlCatalogo.TabIndex = 1
         '
         'lblBuscarProducto
@@ -233,6 +175,7 @@ Partial Class UcVenta
         Me.colCatalogoIdProducto.HeaderText = "IdProducto"
         Me.colCatalogoIdProducto.MinimumWidth = 6
         Me.colCatalogoIdProducto.Name = "colCatalogoIdProducto"
+        Me.colCatalogoIdProducto.Width = 125
         '
         'colCatalogoCodigo
         '
@@ -272,7 +215,7 @@ Partial Class UcVenta
         Me.pnlAgregar.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlAgregar.Location = New System.Drawing.Point(27, 345)
         Me.pnlAgregar.Name = "pnlAgregar"
-        Me.pnlAgregar.Size = New System.Drawing.Size(933, 50)
+        Me.pnlAgregar.Size = New System.Drawing.Size(912, 50)
         Me.pnlAgregar.TabIndex = 2
         '
         'lblCantidad
@@ -315,7 +258,7 @@ Partial Class UcVenta
         Me.lblDetalle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(23, Byte), Integer), CType(CType(42, Byte), Integer))
         Me.lblDetalle.Location = New System.Drawing.Point(27, 398)
         Me.lblDetalle.Name = "lblDetalle"
-        Me.lblDetalle.Size = New System.Drawing.Size(773, 48)
+        Me.lblDetalle.Size = New System.Drawing.Size(752, 48)
         Me.lblDetalle.TabIndex = 3
         Me.lblDetalle.Text = "Productos de la venta"
         '
@@ -327,13 +270,72 @@ Partial Class UcVenta
         Me.btnQuitarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnQuitarProducto.Font = New System.Drawing.Font("Segoe UI", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnQuitarProducto.ForeColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(105, Byte), Integer))
-        Me.btnQuitarProducto.Location = New System.Drawing.Point(819, 402)
+        Me.btnQuitarProducto.Location = New System.Drawing.Point(798, 402)
         Me.btnQuitarProducto.Margin = New System.Windows.Forms.Padding(0, 4, 0, 4)
         Me.btnQuitarProducto.Name = "btnQuitarProducto"
         Me.btnQuitarProducto.Size = New System.Drawing.Size(144, 40)
         Me.btnQuitarProducto.TabIndex = 4
         Me.btnQuitarProducto.Text = "Quitar producto"
         Me.btnQuitarProducto.UseVisualStyleBackColor = False
+        '
+        'dgvDetalleVenta
+        '
+        Me.dgvDetalleVenta.BackgroundColor = System.Drawing.Color.White
+        Me.dgvDetalleVenta.ColumnHeadersHeight = 40
+        Me.dgvDetalleVenta.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colDetalleIdProducto, Me.colDetalleCodigo, Me.colDetalleNombre, Me.colDetalleCantidad, Me.colDetallePrecioUnitario, Me.colDetalleSubtotal})
+        Me.tlpRaiz.SetColumnSpan(Me.dgvDetalleVenta, 2)
+        Me.dgvDetalleVenta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvDetalleVenta.EnableHeadersVisualStyles = False
+        Me.dgvDetalleVenta.GridColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(213, Byte), Integer), CType(CType(225, Byte), Integer))
+        Me.dgvDetalleVenta.Location = New System.Drawing.Point(24, 446)
+        Me.dgvDetalleVenta.Margin = New System.Windows.Forms.Padding(0, 0, 0, 16)
+        Me.dgvDetalleVenta.Name = "dgvDetalleVenta"
+        Me.dgvDetalleVenta.RowHeadersWidth = 51
+        Me.dgvDetalleVenta.RowTemplate.Height = 36
+        Me.dgvDetalleVenta.Size = New System.Drawing.Size(918, 194)
+        Me.dgvDetalleVenta.TabIndex = 5
+        '
+        'colDetalleIdProducto
+        '
+        Me.colDetalleIdProducto.HeaderText = "IdProducto"
+        Me.colDetalleIdProducto.MinimumWidth = 6
+        Me.colDetalleIdProducto.Name = "colDetalleIdProducto"
+        Me.colDetalleIdProducto.Width = 125
+        '
+        'colDetalleCodigo
+        '
+        Me.colDetalleCodigo.HeaderText = "Código"
+        Me.colDetalleCodigo.MinimumWidth = 6
+        Me.colDetalleCodigo.Name = "colDetalleCodigo"
+        Me.colDetalleCodigo.Width = 130
+        '
+        'colDetalleNombre
+        '
+        Me.colDetalleNombre.HeaderText = "Producto"
+        Me.colDetalleNombre.MinimumWidth = 6
+        Me.colDetalleNombre.Name = "colDetalleNombre"
+        Me.colDetalleNombre.Width = 290
+        '
+        'colDetalleCantidad
+        '
+        Me.colDetalleCantidad.HeaderText = "Cantidad"
+        Me.colDetalleCantidad.MinimumWidth = 6
+        Me.colDetalleCantidad.Name = "colDetalleCantidad"
+        Me.colDetalleCantidad.Width = 110
+        '
+        'colDetallePrecioUnitario
+        '
+        Me.colDetallePrecioUnitario.HeaderText = "Precio unitario"
+        Me.colDetallePrecioUnitario.MinimumWidth = 6
+        Me.colDetallePrecioUnitario.Name = "colDetallePrecioUnitario"
+        Me.colDetallePrecioUnitario.Width = 150
+        '
+        'colDetalleSubtotal
+        '
+        Me.colDetalleSubtotal.HeaderText = "Subtotal"
+        Me.colDetalleSubtotal.MinimumWidth = 6
+        Me.colDetalleSubtotal.Name = "colDetalleSubtotal"
+        Me.colDetalleSubtotal.Width = 150
         '
         'pnlCobro
         '
@@ -351,7 +353,7 @@ Partial Class UcVenta
         Me.pnlCobro.Location = New System.Drawing.Point(27, 659)
         Me.pnlCobro.Name = "pnlCobro"
         Me.pnlCobro.Padding = New System.Windows.Forms.Padding(20)
-        Me.pnlCobro.Size = New System.Drawing.Size(933, 126)
+        Me.pnlCobro.Size = New System.Drawing.Size(912, 126)
         Me.pnlCobro.TabIndex = 6
         '
         'lblTotalTexto
@@ -442,15 +444,15 @@ Partial Class UcVenta
         Me.AutoScroll = True
         Me.Controls.Add(Me.tlpRaiz)
         Me.Name = "UcVenta"
-        Me.Size = New System.Drawing.Size(987, 704)
+        Me.Size = New System.Drawing.Size(966, 704)
         Me.tlpRaiz.ResumeLayout(False)
-        CType(Me.dgvDetalleVenta, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlEncabezado.ResumeLayout(False)
         Me.pnlCatalogo.ResumeLayout(False)
         Me.pnlCatalogo.PerformLayout()
         CType(Me.dgvProductosVenta, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlAgregar.ResumeLayout(False)
         CType(Me.nudCantidad, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvDetalleVenta, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlCobro.ResumeLayout(False)
         CType(Me.nudEfectivoRecibido, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.erpVenta, System.ComponentModel.ISupportInitialize).EndInit()
