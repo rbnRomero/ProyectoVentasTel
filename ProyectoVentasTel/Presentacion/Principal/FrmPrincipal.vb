@@ -50,6 +50,10 @@ Public Class FrmPrincipal
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
+        SesionActual.Cerrar()
+        Dim inicioSesion As New FrmInicioSesion()
+        My.Application.EstablecerFormularioPrincipal(inicioSesion)
+        inicioSesion.Show()
         Close()
     End Sub
 

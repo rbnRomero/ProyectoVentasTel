@@ -7,6 +7,7 @@ Public Class FrmInicioSesion
     Private ReadOnly servicioAutenticacion As New ServicioAutenticacion()
 
     Private Sub FrmInicioSesion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Text = "Inicio de Sesión"
         txtContrasena.UseSystemPasswordChar = True
         btnMostrarContrasena.Text = "Mostrar"
         AcceptButton = btnEntrar
@@ -62,16 +63,9 @@ Public Class FrmInicioSesion
     End Function
 
     Private Sub AbrirPrincipal(usuario As UsuarioAutenticado)
-        Hide()
-        Try
-            Using principal As New FrmPrincipal(usuario)
-                principal.ShowDialog(Me)
-            End Using
-        Finally
-            SesionActual.Cerrar()
-            txtContrasena.Clear()
-            Show()
-            txtUsuario.Focus()
-        End Try
+        Dim principal As New FrmPrincipal(usuario)
+        My.Application.EstablecerFormularioPrincipal(principal)
+        principal.Show()
+        Close()
     End Sub
 End Class
