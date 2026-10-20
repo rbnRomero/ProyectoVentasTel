@@ -141,6 +141,8 @@ Public NotInheritable Class UiTema
     End Sub
 
     Public Shared Sub AplicarFocoVisible(boton As Button)
+        RemoveHandler boton.Enter, AddressOf ResaltarFoco
+        RemoveHandler boton.Leave, AddressOf QuitarResaltadoFoco
         AddHandler boton.Enter, AddressOf ResaltarFoco
         AddHandler boton.Leave, AddressOf QuitarResaltadoFoco
     End Sub
@@ -204,8 +206,48 @@ Public NotInheritable Class UiTema
             boton.ForeColor = Superficie
         End If
 
+        Dim nombreIcono As String = ObtenerNombreIcono(boton)
+        If Not String.IsNullOrWhiteSpace(nombreIcono) Then AplicarIcono(boton, nombreIcono)
         AplicarFocoVisible(boton)
     End Sub
+
+    ''' <summary>
+    ''' Asocia un pictograma con una acción sin sustituir el texto del botón.
+    ''' Se usa también cuando una acción cambia de estado, como mostrar u
+    ''' ocultar la contraseña durante el inicio de sesión.
+    ''' </summary>
+    Public Shared Sub AplicarIcono(boton As Button, nombreIcono As String)
+        If boton Is Nothing OrElse String.IsNullOrWhiteSpace(nombreIcono) Then Return
+
+        boton.AutoSize = False
+        Dim dpi As Integer = If(boton.DeviceDpi > 0, boton.DeviceDpi, 96)
+        Dim tamanoBase As Integer = If(boton.Name = "btnMostrarContrasena", 18, 20)
+        Dim tamano As Integer = EscalarParaDpi(tamanoBase, dpi)
+        Dim icono As Image = UiIconos.Obtener(nombreIcono, boton.ForeColor, tamano)
+        If icono Is Nothing Then
+            boton.Image = Nothing
+            Return
+        End If
+
+        boton.Image = icono
+        boton.ImageAlign = ContentAlignment.MiddleLeft
+        boton.TextImageRelation = TextImageRelation.ImageBeforeText
+        boton.TextAlign = ContentAlignment.MiddleCenter
+        Dim rellenoHorizontal As Integer = EscalarParaDpi(10, dpi)
+        boton.Padding = New Padding(rellenoHorizontal, 0, rellenoHorizontal, 0)
+
+        Dim tamanoPreferido As Size = boton.GetPreferredSize(Size.Empty)
+        If tamanoPreferido.Width > boton.Width OrElse tamanoPreferido.Height > boton.Height Then
+            Dim minimo As New Size(Math.Max(boton.MinimumSize.Width, tamanoPreferido.Width),
+                                   Math.Max(boton.MinimumSize.Height, tamanoPreferido.Height))
+            boton.MinimumSize = minimo
+            boton.Size = New Size(Math.Max(boton.Width, minimo.Width), Math.Max(boton.Height, minimo.Height))
+        End If
+    End Sub
+
+    Private Shared Function EscalarParaDpi(valor As Integer, dpi As Integer) As Integer
+        Return CInt(Math.Ceiling(valor * dpi / 96.0F))
+    End Function
 
     Private Shared Sub ResaltarFoco(sender As Object, e As EventArgs)
         Dim boton As Button = DirectCast(sender, Button)
@@ -224,6 +266,51 @@ Public NotInheritable Class UiTema
                boton.Name.IndexOf("Cerrar", StringComparison.OrdinalIgnoreCase) >= 0 OrElse
                boton.Name.IndexOf("Descartar", StringComparison.OrdinalIgnoreCase) >= 0 OrElse
                boton.Name.IndexOf("Editar", StringComparison.OrdinalIgnoreCase) >= 0
+    End Function
+
+    Private Shared Function ObtenerNombreIcono(boton As Button) As String
+        Select Case boton.Name
+            Case "btnProductos"
+                Return "products"
+            Case "btnVenta"
+                Return "sales"
+            Case "btnHistorial"
+                Return "history"
+            Case "btnEntradas"
+                Return "inventory"
+            Case "btnUsuarios"
+                Return "users"
+            Case "btnSalir"
+                Return "sign-out"
+            Case "btnEntrar"
+                Return "sign-in"
+            Case "btnMostrarContrasena"
+                Return "eye"
+            Case "btnNuevoProducto", "btnNuevoUsuario"
+                Return "add"
+            Case "btnEditarProducto", "btnEditarUsuario"
+                Return "edit"
+            Case "btnSeleccionarImagen"
+                Return "image-upload"
+            Case "btnQuitarImagen"
+                Return "image-remove"
+            Case "btnGuardar"
+                Return "save"
+            Case "btnRegistrarEntrada"
+                Return "stock-in"
+            Case "btnAgregarProducto"
+                Return "cart-add"
+            Case "btnQuitarProducto"
+                Return "cart-remove"
+            Case "btnConfirmarVenta"
+                Return "sale-confirm"
+            Case "btnVerDetalle"
+                Return "details"
+            Case "btnCancelarVenta", "btnConfirmarCancelacion"
+                Return "sale-cancel"
+            Case Else
+                Return Nothing
+        End Select
     End Function
 
     Private Shared Function EsControlDeMenu(control As Control) As Boolean

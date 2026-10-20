@@ -89,6 +89,7 @@
     <Compile Include="Aplicacion\Seguridad\ServicioAutenticacion.vb" />
     <Compile Include="Aplicacion\Seguridad\SesionActual.vb" />
     <Compile Include="Presentacion\UiTema.vb" />
+    <Compile Include="Presentacion\UiIconos.vb" />
     <Compile Include="Presentacion\Autenticacion\FrmInicioSesion.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -205,6 +206,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="img\icons\*.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="AGENTS.md" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>

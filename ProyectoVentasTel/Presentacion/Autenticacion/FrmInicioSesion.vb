@@ -1,5 +1,7 @@
 Imports System.Configuration
 Imports System.Data.SqlClient
+Imports System.Windows.Forms
+Imports System.Windows.Forms.Automation
 Imports ProyectoVentasTel.Aplicacion.Seguridad
 Imports ProyectoVentasTel.Dominio.Seguridad
 
@@ -33,6 +35,19 @@ Public Class FrmInicioSesion
         txtContrasena.UseSystemPasswordChar = Not txtContrasena.UseSystemPasswordChar
         btnMostrarContrasena.Text = If(txtContrasena.UseSystemPasswordChar, "Mostrar", "Ocultar")
         btnMostrarContrasena.AccessibleName = If(txtContrasena.UseSystemPasswordChar, "Mostrar contraseña", "Ocultar contraseña")
+        UiTema.AplicarIcono(btnMostrarContrasena, If(txtContrasena.UseSystemPasswordChar, "eye", "eye-off"))
+        NotificarCambioDeVisibilidadContrasena()
+    End Sub
+
+    Private Sub NotificarCambioDeVisibilidadContrasena()
+        Dim objetoAccesible As Control.ControlAccessibleObject = TryCast(btnMostrarContrasena.AccessibilityObject, Control.ControlAccessibleObject)
+        If objetoAccesible IsNot Nothing Then objetoAccesible.NotifyClients(AccessibleEvents.NameChange)
+
+        Dim estado As String = If(txtContrasena.UseSystemPasswordChar, "Contraseña oculta", "Contraseña visible")
+        Dim notificacionEmitida As Boolean = btnMostrarContrasena.AccessibilityObject.RaiseAutomationNotification(
+            AutomationNotificationKind.ActionCompleted,
+            AutomationNotificationProcessing.MostRecent,
+            estado)
     End Sub
 
     Private Sub btnEntrar_Click(sender As Object, e As EventArgs) Handles btnEntrar.Click

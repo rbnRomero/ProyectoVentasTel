@@ -1,6 +1,7 @@
 ﻿Public Class UcVenta
     Private Sub UcVenta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UiTema.Aplicar(Me)
+        AjustarColumnaAccionQuitarProducto()
         UiTema.OcultarEncabezadoDeModulo(tlpRaiz, pnlEncabezado, lblTitulo)
         pnlEncabezado.Controls.Remove(lblFolioPendiente)
         pnlCatalogo.Controls.Add(lblFolioPendiente)
@@ -14,5 +15,14 @@
         txtBuscarProducto.Focus()
         UiTema.ConfigurarTabla(dgvProductosVenta, "catálogo de productos")
         UiTema.ConfigurarTabla(dgvDetalleVenta, "productos de la venta")
+    End Sub
+
+    Private Sub AjustarColumnaAccionQuitarProducto()
+        If tlpRaiz.ColumnStyles.Count < 2 Then Return
+
+        Dim columnaAccion As ColumnStyle = tlpRaiz.ColumnStyles(1)
+        Dim anchoRequerido As Integer = Math.Max(btnQuitarProducto.Width, btnQuitarProducto.MinimumSize.Width) + btnQuitarProducto.Margin.Horizontal
+        columnaAccion.SizeType = SizeType.Absolute
+        columnaAccion.Width = Math.Max(columnaAccion.Width, anchoRequerido)
     End Sub
 End Class
