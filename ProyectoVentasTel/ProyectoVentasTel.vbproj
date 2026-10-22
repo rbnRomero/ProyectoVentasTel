@@ -80,6 +80,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infraestructura\Datos\ConexionSqlServer.vb" />
+    <Compile Include="Dominio\Ventas\Venta.vb" />
+    <Compile Include="Aplicacion\Servicios\ServicioVentas.vb" />
+    <Compile Include="Infraestructura\Datos\RepositorioVentasSqlServer.vb" />
+    <Compile Include="Dominio\Inventario\EntradaInventario.vb" />
+    <Compile Include="Aplicacion\Servicios\ServicioEntradasInventario.vb" />
+    <Compile Include="Infraestructura\Datos\RepositorioEntradasInventarioSqlServer.vb" />
     <Compile Include="Dominio\Productos\Producto.vb" />
     <Compile Include="Aplicacion\Servicios\ServicioProductos.vb" />
     <Compile Include="Infraestructura\Datos\RepositorioProductosSqlServer.vb" />

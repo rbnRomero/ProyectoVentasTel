@@ -121,12 +121,23 @@ Public Class FrmPrincipal
     End Sub
 
     Private Sub MostrarModulo(modulo As ModuloAplicacion, control As UserControl, titulo As String)
-        If control.Parent IsNot pnlContenido Then pnlContenido.Controls.Add(control)
+        Dim yaInicializado = control.Parent Is pnlContenido
+        If Not yaInicializado Then pnlContenido.Controls.Add(control)
 
         control.Dock = DockStyle.Fill
         control.BringToFront()
         lblTituloSeccion.Text = titulo
         ActualizarModuloActivo(modulo)
+        If yaInicializado Then
+            Select Case modulo
+                Case ModuloAplicacion.Ventas
+                    ucVenta.ActualizarDatos()
+                Case ModuloAplicacion.HistorialVentas
+                    ucHistorialVentas.ActualizarDatos()
+                Case ModuloAplicacion.EntradasInventario
+                    ucEntradasInventario.ActualizarDatos()
+            End Select
+        End If
     End Sub
 
     Private Sub ActualizarModuloActivo(moduloActivo As ModuloAplicacion)
