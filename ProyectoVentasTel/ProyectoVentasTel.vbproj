@@ -80,6 +80,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infraestructura\Datos\ConexionSqlServer.vb" />
+    <Compile Include="Dominio\Productos\Producto.vb" />
+    <Compile Include="Aplicacion\Servicios\ServicioProductos.vb" />
+    <Compile Include="Infraestructura\Datos\RepositorioProductosSqlServer.vb" />
+    <Compile Include="Infraestructura\Imagenes\AlmacenImagenesProductos.vb" />
     <Compile Include="Infraestructura\Datos\RepositorioUsuariosSqlServer.vb" />
     <Compile Include="Dominio\Seguridad\RolUsuario.vb" />
     <Compile Include="Dominio\Seguridad\ModuloAplicacion.vb" />
