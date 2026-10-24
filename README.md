@@ -1,6 +1,10 @@
 # VISOR — Ventas e inventario
 
+V.I.S.O.R. significa «Ventas e Inventario de Seguimiento de Operaciones y Resultados».
+
 Aplicación escolar de escritorio para gestionar ventas e inventario de teléfonos y accesorios, desarrollada en VB.NET y Windows Forms.
+
+Proyecto escolar para la materia Programación Visual, desarrollado por estudiantes de Ingeniería en Sistemas de Información del Tecnológico Cuicalli, plantel Huixquilucan.
 
 ## Requisitos y ejecución
 
@@ -10,6 +14,10 @@ Aplicación escolar de escritorio para gestionar ventas e inventario de teléfon
 - Configurar la conexión `VentasTel_BD` en `ProyectoVentasTel/App.config` para la instancia local. No versionar credenciales reales.
 - Desde una consola de desarrollador de Visual Studio, compilar con `msbuild ProyectoVentasTel.slnx /p:Configuration=Debug`.
 - Ejecutar `.\ProyectoVentasTel\bin\Debug\ProyectoVentasTel.exe`.
+
+## Arquitectura
+
+La aplicación usa Visual Basic .NET, Windows Forms y SQL Server. `Presentacion` contiene las pantallas; `Aplicacion` coordina los casos de uso y la seguridad; `Dominio` define entidades y reglas de negocio; e `Infraestructura` implementa el acceso a datos y el manejo de imágenes. Las operaciones relacionadas que modifican varias tablas, como registrar una venta y actualizar existencias, se realizan en una transacción.
 
 ## Productos
 
