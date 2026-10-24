@@ -8,6 +8,15 @@ Public Class UcVenta
 
     Private Sub UcVenta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UiTema.Aplicar(Me)
+        tlpRaiz.RowStyles(1).Height = 330
+        AddHandler pnlCatalogo.Resize, AddressOf AjustarControlesCatalogo
+        AjustarControlesCatalogo(Nothing, EventArgs.Empty)
+        lblTotalValor.Size = New Size(lblTotalValor.Width, 32)
+        lblCambioValor.Size = New Size(lblCambioValor.Width, 28)
+        lblTotalValor.TextAlign = ContentAlignment.MiddleLeft
+        lblCambioValor.TextAlign = ContentAlignment.MiddleLeft
+        btnConfirmarVenta.FlatAppearance.MouseOverBackColor = Color.FromArgb(29, 78, 216)
+        btnConfirmarVenta.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 64, 175)
         AjustarColumnaAccionQuitarProducto()
         UiTema.OcultarEncabezadoDeModulo(tlpRaiz, pnlEncabezado, lblTitulo)
         pnlEncabezado.Controls.Remove(lblFolioPendiente)
@@ -41,6 +50,13 @@ Public Class UcVenta
         nudEfectivoRecibido.ThousandsSeparator = True
         CargarCatalogo()
         ActualizarCarrito()
+    End Sub
+
+    Private Sub AjustarControlesCatalogo(sender As Object, e As EventArgs)
+        Dim anchoDisponible As Integer = Math.Max(200, pnlCatalogo.ClientSize.Width - pnlCatalogo.Padding.Horizontal)
+        txtBuscarProducto.Width = anchoDisponible
+        dgvProductosVenta.Size = New Size(anchoDisponible,
+                                          Math.Max(100, pnlCatalogo.ClientSize.Height - dgvProductosVenta.Top - pnlCatalogo.Padding.Bottom))
     End Sub
 
     Private Sub AjustarColumnaAccionQuitarProducto()
@@ -118,7 +134,7 @@ Public Class UcVenta
         Dim total = carrito.Sum(Function(x) x.Subtotal)
         lblTotalValor.Text = total.ToString("C2")
         lblCambioValor.Text = Math.Max(0D, nudEfectivoRecibido.Value - total).ToString("C2")
-        btnConfirmarVenta.Enabled = carrito.Count > 0
+        btnConfirmarVenta.Enabled = True
         btnQuitarProducto.Enabled = dgvDetalleVenta.Rows.Count > 0
     End Sub
 
@@ -139,12 +155,14 @@ Public Class UcVenta
         End If
         erpVenta.SetError(nudEfectivoRecibido, String.Empty)
         Try
+            Dim cambioConfirmado As Decimal = nudEfectivoRecibido.Value - total
             Dim folio = servicio.Registrar(carrito.ToArray(), nudEfectivoRecibido.Value)
             lblFolioPendiente.Text = "Folio: " & folio
-            lblMensajeVenta.Text = "Venta confirmada. Cambio: " & (nudEfectivoRecibido.Value - total).ToString("C2")
+            lblMensajeVenta.Text = "Venta confirmada."
             carrito.Clear()
             nudEfectivoRecibido.Value = 0D
             ActualizarCarrito()
+            lblCambioValor.Text = cambioConfirmado.ToString("C2")
             CargarCatalogo()
         Catch ex As ExistenciasInsuficientesException
             lblMensajeVenta.Text = ex.Message

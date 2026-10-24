@@ -6,6 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E4F721DC-38B4-4EEF-826D-3ED62F4E225A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
+    <ApplicationIcon>img\system\visor-v-blanca.ico</ApplicationIcon>
     <StartupObject>ProyectoVentasTel.My.MyApplication</StartupObject>
     <RootNamespace>ProyectoVentasTel</RootNamespace>
     <AssemblyName>ProyectoVentasTel</AssemblyName>
@@ -230,7 +231,61 @@
     <Content Include="img\icons\*.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="img\system\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\productos\ACC-001.jpg" />
+    <Content Include="img\productos\ACC-002.jpg" />
+    <Content Include="img\productos\ACC-003.jpg" />
+    <Content Include="img\productos\ACC-004.jpg" />
+    <Content Include="img\productos\ACC-005.jpg" />
+    <Content Include="img\productos\ACC-006.jpg" />
+    <Content Include="img\productos\ACC-007.jpg" />
+    <Content Include="img\productos\ACC-008.jpg" />
+    <Content Include="img\productos\ACC-009.jpg" />
+    <Content Include="img\productos\ACC-010.jpg" />
+    <Content Include="img\productos\ACC-011.jpg" />
+    <Content Include="img\productos\ACC-012.jpg" />
+    <Content Include="img\productos\ACC-013.jpg" />
+    <Content Include="img\productos\ACC-014.png" />
+    <Content Include="img\productos\ACC-015.jpg" />
+    <Content Include="img\productos\ACC-016.jpg" />
+    <Content Include="img\productos\ACC-017.jpg" />
+    <Content Include="img\productos\ACC-018.jpg" />
+    <Content Include="img\productos\ACC-019.jpg" />
+    <Content Include="img\productos\ACC-020.jpg" />
+    <Content Include="img\productos\ACC-021.jpg" />
+    <Content Include="img\productos\ACC-022.jpg" />
+    <Content Include="img\productos\ACC-023.jpg" />
+    <Content Include="img\productos\ACC-024.jpg" />
+    <Content Include="img\productos\ACC-025.jpg" />
+    <Content Include="img\productos\TEL-001.jpg" />
+    <Content Include="img\productos\TEL-002.jpg" />
+    <Content Include="img\productos\TEL-003.jpg" />
+    <Content Include="img\productos\TEL-004.jpg" />
+    <Content Include="img\productos\TEL-005.jpg" />
+    <Content Include="img\productos\TEL-006.jpg" />
+    <Content Include="img\productos\TEL-007.jpg" />
+    <Content Include="img\productos\TEL-008.jpg" />
+    <Content Include="img\productos\TEL-009.jpg" />
+    <Content Include="img\productos\TEL-010.jpg" />
+    <Content Include="img\productos\TEL-011.jpg" />
+    <Content Include="img\productos\TEL-012.jpg" />
+    <Content Include="img\productos\TEL-013.jpg" />
+    <Content Include="img\productos\TEL-014.jpg" />
+    <Content Include="img\productos\TEL-015.jpg" />
+    <Content Include="img\productos\TEL-016.jpg" />
+    <Content Include="img\productos\TEL-017.jpg" />
+    <Content Include="img\productos\TEL-018.jpg" />
+    <Content Include="img\productos\TEL-019.jpg" />
+    <Content Include="img\productos\TEL-020.jpg" />
+    <Content Include="img\productos\TEL-021.jpg" />
+    <Content Include="img\productos\TEL-022.jpg" />
+    <Content Include="img\productos\TEL-023.jpg" />
+    <Content Include="img\productos\TEL-024.jpg" />
+    <Content Include="img\productos\TEL-025.jpg" />
     <None Include="AGENTS.md" />
+    <None Include="img\productos\.gitkeep" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -242,11 +297,6 @@
     </None>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Aplicacion\Seguridad\" />
-    <Folder Include="Aplicacion\Servicios\" />
-    <Folder Include="Dominio\" />
-    <Folder Include="Infraestructura\Imagenes\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

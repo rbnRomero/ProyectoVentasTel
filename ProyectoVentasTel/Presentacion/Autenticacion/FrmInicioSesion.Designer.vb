@@ -85,6 +85,7 @@ Partial Class FrmInicioSesion
         Me.lblTitulo.Size = New System.Drawing.Size(360, 43)
         Me.lblTitulo.TabIndex = 1
         Me.lblTitulo.Text = "Iniciar sesión"
+        Me.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lblUsuario
         '
@@ -164,6 +165,7 @@ Partial Class FrmInicioSesion
         Me.lblMensaje.Name = "lblMensaje"
         Me.lblMensaje.Size = New System.Drawing.Size(360, 22)
         Me.lblMensaje.TabIndex = 8
+        Me.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'erpInicioSesion
         '

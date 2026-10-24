@@ -1,4 +1,5 @@
 Imports System.Drawing
+Imports System.IO
 Imports System.Windows.Forms
 
 ''' <summary>
@@ -6,8 +7,10 @@ Imports System.Windows.Forms
 ''' Se aplica en tiempo de ejecución para no modificar archivos generados por el diseñador.
 ''' </summary>
 Public NotInheritable Class UiTema
+    Private Shared ReadOnly IconoSistema As Icon = CargarIconoSistema()
     Public Shared ReadOnly Fondo As Color = Color.FromArgb(234, 240, 246)
-    Public Shared ReadOnly Superficie As Color = Color.FromArgb(248, 250, 252)
+    Public Shared ReadOnly Superficie As Color = Color.FromArgb(232, 239, 246)
+    Private Shared ReadOnly TextoClaro As Color = Color.White
     Public Shared ReadOnly Campo As Color = Color.White
     Public Shared ReadOnly Primario As Color = Color.FromArgb(37, 99, 235)
     Public Shared ReadOnly Navegacion As Color = Color.FromArgb(15, 23, 42)
@@ -26,6 +29,9 @@ Public NotInheritable Class UiTema
     Public Shared Sub Aplicar(controlRaiz As Control)
         If controlRaiz Is Nothing Then Return
 
+        Dim formulario As Form = TryCast(controlRaiz, Form)
+        If formulario IsNot Nothing AndAlso IconoSistema IsNot Nothing Then formulario.Icon = IconoSistema
+
         controlRaiz.BackColor = Fondo
         controlRaiz.ForeColor = TextoPrincipal
         If String.IsNullOrWhiteSpace(controlRaiz.AccessibleName) Then
@@ -33,6 +39,12 @@ Public NotInheritable Class UiTema
         End If
         AplicarRecursivamente(controlRaiz)
     End Sub
+
+    Private Shared Function CargarIconoSistema() As Icon
+        Dim ruta As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "img", "system", "visor-v-blanca.ico")
+        If Not File.Exists(ruta) Then Return Nothing
+        Return New Icon(ruta)
+    End Function
 
     Public Shared Sub OcultarEncabezadoDeModulo(raiz As TableLayoutPanel, encabezado As Panel, titulo As Label, Optional conservarMetadato As Boolean = False)
         If raiz Is Nothing OrElse encabezado Is Nothing Then Return
@@ -109,17 +121,17 @@ Public NotInheritable Class UiTema
         tabla.GridColor = Borde
         tabla.EnableHeadersVisualStyles = False
         tabla.ColumnHeadersDefaultCellStyle.BackColor = Navegacion
-        tabla.ColumnHeadersDefaultCellStyle.ForeColor = Superficie
+        tabla.ColumnHeadersDefaultCellStyle.ForeColor = TextoClaro
         tabla.ColumnHeadersDefaultCellStyle.SelectionBackColor = Navegacion
-        tabla.ColumnHeadersDefaultCellStyle.SelectionForeColor = Superficie
+        tabla.ColumnHeadersDefaultCellStyle.SelectionForeColor = TextoClaro
         tabla.DefaultCellStyle.BackColor = Campo
         tabla.DefaultCellStyle.ForeColor = TextoPrincipal
         tabla.DefaultCellStyle.SelectionBackColor = Primario
-        tabla.DefaultCellStyle.SelectionForeColor = Superficie
+        tabla.DefaultCellStyle.SelectionForeColor = TextoClaro
         tabla.AlternatingRowsDefaultCellStyle.BackColor = Fondo
         tabla.AlternatingRowsDefaultCellStyle.ForeColor = TextoPrincipal
         tabla.AlternatingRowsDefaultCellStyle.SelectionBackColor = Primario
-        tabla.AlternatingRowsDefaultCellStyle.SelectionForeColor = Superficie
+        tabla.AlternatingRowsDefaultCellStyle.SelectionForeColor = TextoClaro
         tabla.RowHeadersVisible = False
         tabla.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
 
@@ -187,12 +199,14 @@ Public NotInheritable Class UiTema
     Private Shared Sub ConfigurarBoton(boton As Button)
         boton.AccessibleName = If(String.IsNullOrWhiteSpace(boton.AccessibleName), boton.Text, boton.AccessibleName)
         boton.FlatStyle = FlatStyle.Flat
-        boton.FlatAppearance.BorderSize = 0
+        ' Mantener el grosor constante evita que el icono y el texto cambien de
+        ' posición cuando el botón recibe o pierde el foco.
+        boton.FlatAppearance.BorderSize = 1
         boton.UseVisualStyleBackColor = False
 
         If boton.BackColor.ToArgb() = Peligro.ToArgb() Then
             boton.BackColor = Peligro
-            boton.ForeColor = Superficie
+            boton.ForeColor = TextoClaro
         ElseIf boton.BackColor.ToArgb() = SecundarioDeshabilitado.ToArgb() OrElse EsBotonSecundario(boton) Then
             boton.BackColor = If(boton.Enabled, Secundario, SecundarioDeshabilitado)
             boton.ForeColor = If(boton.Enabled, Color.FromArgb(51, 65, 85), TextoSecundario)
@@ -200,14 +214,21 @@ Public NotInheritable Class UiTema
             boton.FlatAppearance.BorderSize = 1
         ElseIf boton.Name.IndexOf("Salir", StringComparison.OrdinalIgnoreCase) >= 0 AndAlso boton.Parent IsNot Nothing AndAlso boton.Parent.Name = "tlpMenu" Then
             boton.BackColor = Navegacion
-            boton.ForeColor = Superficie
+            boton.ForeColor = TextoClaro
         Else
             boton.BackColor = Primario
-            boton.ForeColor = Superficie
+            boton.ForeColor = TextoClaro
         End If
 
         Dim nombreIcono As String = ObtenerNombreIcono(boton)
         If Not String.IsNullOrWhiteSpace(nombreIcono) Then AplicarIcono(boton, nombreIcono)
+        If EsControlDeMenu(boton) Then
+            boton.FlatAppearance.BorderSize = 0
+            boton.FlatAppearance.BorderColor = boton.BackColor
+        Else
+            boton.FlatAppearance.BorderSize = 1
+            boton.FlatAppearance.BorderColor = If(EsBotonSecundario(boton), BordeSecundario, boton.BackColor)
+        End If
         AplicarFocoVisible(boton)
     End Sub
 
@@ -230,6 +251,14 @@ Public NotInheritable Class UiTema
         End If
 
         boton.Image = icono
+        If boton.Name = "btnMostrarContrasena" Then
+            boton.ImageAlign = ContentAlignment.MiddleCenter
+            boton.TextImageRelation = TextImageRelation.Overlay
+            boton.TextAlign = ContentAlignment.MiddleCenter
+            boton.Padding = Padding.Empty
+            Return
+        End If
+
         boton.ImageAlign = ContentAlignment.MiddleLeft
         boton.TextImageRelation = TextImageRelation.ImageBeforeText
         boton.TextAlign = ContentAlignment.MiddleCenter
@@ -251,13 +280,14 @@ Public NotInheritable Class UiTema
 
     Private Shared Sub ResaltarFoco(sender As Object, e As EventArgs)
         Dim boton As Button = DirectCast(sender, Button)
-        boton.FlatAppearance.BorderColor = If(EsControlDeMenu(boton), Superficie, TextoPrincipal)
-        boton.FlatAppearance.BorderSize = 2
+        If EsControlDeMenu(boton) Then Return
+        boton.FlatAppearance.BorderColor = TextoPrincipal
     End Sub
 
     Private Shared Sub QuitarResaltadoFoco(sender As Object, e As EventArgs)
         Dim boton As Button = DirectCast(sender, Button)
-        boton.FlatAppearance.BorderSize = If(EsBotonSecundario(boton) AndAlso boton.Enabled, 1, 0)
+        If EsControlDeMenu(boton) Then Return
+        boton.FlatAppearance.BorderColor = If(EsBotonSecundario(boton) AndAlso boton.Enabled, BordeSecundario, boton.BackColor)
     End Sub
 
     Private Shared Function EsBotonSecundario(boton As Button) As Boolean

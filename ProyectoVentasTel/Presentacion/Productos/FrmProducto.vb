@@ -1,12 +1,14 @@
 Imports ProyectoVentasTel.Aplicacion.Servicios
 Imports ProyectoVentasTel.Dominio.Productos
 Imports ProyectoVentasTel.Infraestructura.Imagenes
+Imports System.Drawing.Imaging
 
 Public Class FrmProducto
     Private ReadOnly servicio As ServicioProductos
     Private ReadOnly producto As Producto
     Private archivoImagenNuevo As String
     Private quitarImagen As Boolean
+    Private imagenSeleccionarCentrada As Bitmap
 
     Public Sub New()
         Me.New(Nothing, New ServicioProductos())
@@ -18,6 +20,7 @@ Public Class FrmProducto
         servicio = servicioProductos
         StartPosition = FormStartPosition.CenterParent
         AddHandler Disposed, Sub() LiberarVistaPrevia()
+        AddHandler Disposed, Sub() LiberarIconoSeleccionarImagen()
     End Sub
 
     Public Shared Function CrearNuevo(servicio As ServicioProductos) As FrmProducto
@@ -33,6 +36,7 @@ Public Class FrmProducto
 
     Private Sub FrmProducto_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UiTema.Aplicar(Me)
+        CentrarContenidoSeleccionarImagen()
         txtCodigo.MaxLength = 30
         txtNombre.MaxLength = 100
         txtMarca.MaxLength = 50
@@ -85,6 +89,43 @@ Public Class FrmProducto
             txtCapacidadGB.Clear()
             erpProducto.SetError(txtCapacidadGB, String.Empty)
         End If
+    End Sub
+
+    Private Sub CentrarContenidoSeleccionarImagen()
+        Dim icono As Image = btnSeleccionarImagen.Image
+        If icono Is Nothing Then Return
+
+        Dim texto As String = btnSeleccionarImagen.Text
+        Dim tamanoTexto As Size = TextRenderer.MeasureText(texto, btnSeleccionarImagen.Font, Size.Empty, TextFormatFlags.NoPadding)
+        Dim espacio As Integer = 8
+        Dim anchoContenido As Integer = icono.Width + espacio + tamanoTexto.Width
+        imagenSeleccionarCentrada = New Bitmap(anchoContenido, btnSeleccionarImagen.Height, PixelFormat.Format32bppArgb)
+
+        Using grafico As Graphics = Graphics.FromImage(imagenSeleccionarCentrada)
+            grafico.Clear(Color.Transparent)
+            grafico.DrawImage(icono, 0, (btnSeleccionarImagen.Height - icono.Height) \ 2, icono.Width, icono.Height)
+            TextRenderer.DrawText(grafico,
+                                  texto,
+                                  btnSeleccionarImagen.Font,
+                                  New Rectangle(icono.Width + espacio, 0, tamanoTexto.Width, btnSeleccionarImagen.Height),
+                                  btnSeleccionarImagen.ForeColor,
+                                  TextFormatFlags.Left Or TextFormatFlags.VerticalCenter Or TextFormatFlags.NoPadding)
+        End Using
+
+        btnSeleccionarImagen.Image = imagenSeleccionarCentrada
+        btnSeleccionarImagen.ImageAlign = ContentAlignment.MiddleCenter
+        btnSeleccionarImagen.TextImageRelation = TextImageRelation.Overlay
+        btnSeleccionarImagen.TextAlign = ContentAlignment.MiddleCenter
+        btnSeleccionarImagen.Padding = Padding.Empty
+        btnSeleccionarImagen.Text = String.Empty
+        btnSeleccionarImagen.AccessibleName = "Seleccionar imagen"
+        btnSeleccionarImagen.AccessibleDescription = "Busca una imagen para el producto"
+    End Sub
+
+    Private Sub LiberarIconoSeleccionarImagen()
+        If imagenSeleccionarCentrada Is Nothing Then Return
+        imagenSeleccionarCentrada.Dispose()
+        imagenSeleccionarCentrada = Nothing
     End Sub
 
     Private Function CrearSolicitud() As SolicitudEdicionProducto

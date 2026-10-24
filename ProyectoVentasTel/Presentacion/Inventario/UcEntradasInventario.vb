@@ -6,6 +6,10 @@ Public Class UcEntradasInventario
 
     Private Sub UcEntradasInventario_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UiTema.Aplicar(Me)
+        tlpRaiz.RowStyles(1).Height = 208
+        tlpCaptura.RowStyles(3).SizeType = SizeType.Absolute
+        tlpCaptura.RowStyles(3).Height = 42
+        btnRegistrarEntrada.Height = 36
         UiTema.OcultarEncabezadoDeModulo(tlpRaiz, pnlEncabezado, lblTitulo)
         UiTema.ConfigurarEtiqueta(lblProducto, cboProducto, "Producto")
         UiTema.ConfigurarEtiqueta(lblCantidad, nudCantidad, "Cantidad recibida")

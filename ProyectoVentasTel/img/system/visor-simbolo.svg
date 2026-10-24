@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" role="img" aria-labelledby="title desc">
+  <title id="title">VISOR — símbolo</title>
+  <desc id="desc">Símbolo azul inspirado en una V y un calendario; versión sin letras.</desc>
+  <g transform="translate(250 250)">
+    <path d="M90 135 250 410" fill="none" stroke="#164FA7" stroke-width="78" stroke-linecap="round"/>
+    <path d="M410 135 250 410" fill="none" stroke="#116CF9" stroke-width="78" stroke-linecap="round"/>
+    <path d="M155 145V62Q155 42 176 42H324Q345 42 345 62V145" fill="none" stroke="#041839" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M226 95h48" fill="none" stroke="#041839" stroke-width="20" stroke-linecap="round"/>
+    <g fill="#041839">
+      <rect x="198" y="151" width="43" height="43" rx="7"/>
+      <rect x="259" y="151" width="43" height="43" rx="7"/>
+      <rect x="198" y="212" width="43" height="43" rx="7"/>
+      <rect x="259" y="212" width="43" height="43" rx="7"/>
+    </g>
+  </g>
+</svg>

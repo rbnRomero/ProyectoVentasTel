@@ -38,20 +38,26 @@ La carga es transaccional y puede repetirse. Un código existente se omite cuand
 
 SQL Server no descarga imágenes ni valida archivos del equipo cliente. Las fotos ya están incluidas en el proyecto y fueron revisadas visualmente: producto aislado, fondo blanco, sin personas, ambientación, empaques ni teléfonos dentro de las fundas. Para evitar textos promocionales en pantalla se usan vistas traseras de algunos teléfonos. El soporte Belkin aparece sin teléfono y los audífonos muestran sus propios componentes. Las páginas oficiales, URL exacta de cada fotografía, dimensiones y SHA-256 están documentadas en `ScriptsBD/PRODUCTOS_INICIALES_FUENTES.json`.
 
-Ejecutar `powershell -NoProfile -File Pruebas/Productos/ProbarCatalogoInicial.ps1` para validar los 50 registros, imágenes, fuentes, dimensiones y fondos. Agregar `-Sql` para probar la inserción, repetición, carga parcial y conflictos en una tabla temporal con el esquema y el índice de variantes reales. Las pruebas revierten sus transacciones y no modifican `dbo.Productos`. La carga definitiva queda a cargo del usuario.
+## Comprobación antes de la entrega
 
-## Comprobaciones del módulo
+Compila la solución en Debug desde una consola de desarrollador de Visual Studio:
 
-Compilar en Debug y comprobar consulta y filtros, altas y ediciones de ambos tipos, validaciones, duplicados, permisos por rol, existencias inalteradas, imágenes y recuperación ante errores de conexión. Los archivos generados en bin/obj no se versionan.
+```powershell
+msbuild ProyectoVentasTel.slnx /p:Configuration=Debug
+```
 
-Después de compilar, ejecutar `powershell -NoProfile -File Pruebas/Productos/Ejecutar.ps1` para comprobar reglas, permisos, imágenes y limpieza tras fallos, sin dependencias adicionales. Agregar `-Sql` para probar también el repositorio contra la base configurada: crea registros temporales dentro de una transacción que se revierte y comprueba que no queden productos de prueba. Las pruebas SQL no deben ejecutarse contra una base de producción. Agregar `-Vista` abre una ventana de revisión con una sesión de Administrador de prueba; esta opción pertenece exclusivamente al ejecutable de pruebas y no autentica usuarios en la aplicación principal.
+Ejecuta la aplicación compilada:
 
-Para verificar el almacenamiento con el ejecutable Release, compilar primero esa configuración y ejecutar las pruebas con `-Configuracion Release`. Las pruebas de imágenes comprueban la misma carpeta desde Debug y Release, independencia del directorio de trabajo, creación de carpetas, proyecto ausente, error de escritura y limpieza de copias reales tras fallos de persistencia. El rechazo por permisos insuficientes se simula mediante el contrato de almacenamiento, sin modificar los permisos del sistema.
+```powershell
+.\ProyectoVentasTel\bin\Debug\ProyectoVentasTel.exe
+```
+
+Con la base de datos preparada, comprueba manualmente el inicio de sesión, los permisos por rol y los módulos de productos, ventas e inventario. Verifica altas, ediciones y consultas de productos; registro de entradas; confirmación, historial y cancelación de ventas; validaciones; actualización de existencias; e imágenes de productos. Confirma también que la aplicación muestre un mensaje claro si no puede conectarse a SQL Server.
+
+Para revisar la configuración optimizada, compila también Release con `msbuild ProyectoVentasTel.slnx /p:Configuration=Release` y abre `ProyectoVentasTel\bin\Release\ProyectoVentasTel.exe`.
 
 ## Ventas e inventario
 
 El módulo Ventas consulta productos activos con existencias, prepara un carrito y confirma ventas de contado. La confirmación guarda el folio, encabezado y detalle, y descuenta existencias dentro de una transacción. El historial permite filtrar por fechas y estado y consultar el detalle. Vendedores pueden cancelar sus propias ventas y Administradores cualquiera; se requiere motivo y la devolución de existencias se registra junto con la cancelación en una transacción. Se usan `dbo.Productos`, `dbo.Ventas`, `dbo.DetalleVenta` y `dbo.Usuarios`.
 
 Entradas de inventario permite a los roles Administrador e Inventarios registrar cantidades positivas para productos activos y consultar el historial. El incremento de existencias y el registro en `dbo.EntradasInventario` se confirman juntos. Se usan `dbo.Productos`, `dbo.EntradasInventario` y `dbo.Usuarios`. No requiere cambios de esquema.
-
-Después de compilar, ejecutar `powershell -ExecutionPolicy Bypass -File Pruebas/VentasInventario/Ejecutar.ps1` para comprobar las reglas de los servicios, la validación de efectivo y cantidades, la consolidación del carrito y los permisos de acceso y cancelación sin conectarse a SQL Server.

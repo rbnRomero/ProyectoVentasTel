@@ -23,6 +23,8 @@ Public Class FrmDetalleVenta
 
     Private Sub FrmDetalleVenta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UiTema.Aplicar(Me)
+        btnCancelarVenta.FlatAppearance.MouseOverBackColor = Color.FromArgb(220, 38, 38)
+        btnCancelarVenta.FlatAppearance.MouseDownBackColor = Color.FromArgb(153, 27, 27)
         ReubicarAccionVolver()
         UiTema.ConfigurarTabla(dgvArticulos, "artículos de la venta")
         dgvArticulos.ReadOnly = True
@@ -79,8 +81,8 @@ Public Class FrmDetalleVenta
     End Sub
 
     Private Sub btnCancelarVenta_Click(sender As Object, e As EventArgs) Handles btnCancelarVenta.Click
+        If pnlCapturaCancelacion.Visible Then Return
         pnlCapturaCancelacion.Visible = True
-        btnCancelarVenta.Enabled = False
         txtMotivoCancelacion.Focus()
     End Sub
 
